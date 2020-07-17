@@ -4,7 +4,7 @@
 
 	<groupId>io.github.zicenter</groupId>
 	<artifactId>shortener</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>Zicenter Shortener Client</name>
 	<description>Maven client for the zicenter shortener service</description>
