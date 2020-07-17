@@ -4,7 +4,7 @@
 
 	<groupId>io.github.zicenter</groupId>
 	<artifactId>shortener</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<name>Zicenter Shortener Client</name>
 	<description>Maven client for the zicenter shortener service</description>
@@ -61,7 +61,7 @@
     </dependencies>
 
 	<build>
-		<finalName>${project.name}</finalName>
+		<finalName>app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -119,6 +119,13 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<executable>gpg</executable>
+					<gpgArguments>
+						<arg>--pinentry-mode</arg>
+						<arg>loopback</arg>
+					</gpgArguments>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
