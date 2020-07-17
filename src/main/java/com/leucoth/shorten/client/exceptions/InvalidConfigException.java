@@ -1,4 +1,3 @@
 package com.leucoth.shorten.client.exceptions;
 
-public class InvalidConfigException {
-}
+public class InvalidConfigException extends Exception {}

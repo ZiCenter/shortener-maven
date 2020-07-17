@@ -1,5 +1,6 @@
 package com.leucoth.shorten.client.utils;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -7,6 +8,8 @@ import com.leucoth.shorten.client.exceptions.CallFailedException;
 import com.leucoth.shorten.client.exceptions.BadCredentialsException;
 import com.leucoth.shorten.client.exceptions.UnauthorizedException;
 import com.leucoth.shorten.client.models.ShortenUrl;
+import com.leucoth.shorten.client.models.rest.LoginRequest;
+import com.leucoth.shorten.client.models.rest.LoginResponse;
 import com.leucoth.shorten.client.models.rest.UrlRequest;
 import com.leucoth.shorten.client.models.rest.UrlResponse;
 import org.apache.http.HttpHeaders;
@@ -21,12 +24,13 @@ import org.apache.http.util.EntityUtils;
 public class HttpClient {
 
     private static Gson g = new Gson();
+    private static String baseUrl = "http://www.zicenter.com/api/v1";
 
     private HttpClient() {
         super();
     }
 
-    public static CloseableHttpClient getHttpClient(String url) {
+    private static CloseableHttpClient getHttpClient() {
         RequestConfig config = RequestConfig.custom().setConnectTimeout(1000).setSocketTimeout(20000).build();
         return HttpClients.custom().setDefaultRequestConfig(config).build();
     }
@@ -34,29 +38,54 @@ public class HttpClient {
     public static List<ShortenUrl> generateToken(String token, UrlRequest req)
             throws CallFailedException, UnauthorizedException {
         UrlResponse resp;
-        String url = "https://shorten.leucoth.com";
-        try (CloseableHttpClient c = HttpClient.getHttpClient(url)) {
-            HttpPost post = new HttpPost(url);
-            post.addHeader(HttpHeaders.ACCEPT, "application/json");
-            post.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-            post.addHeader(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token));
+        String url = baseUrl + "/urls/generate";
+        HttpPost post = new HttpPost(url);
+        post.addHeader(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token));
+        try {
             post.setEntity(new StringEntity(g.toJson(req)));
-            HttpResponse response = c.execute(post);
-            int statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode == 200) {
-                String respStr = EntityUtils.toString(response.getEntity());
-                resp = g.fromJson(respStr, UrlResponse.class);
-            } else {
-                throw new CallFailedException();
-            }
+            resp = executeCall(post, UrlResponse.class);
         } catch (Exception e) {
             throw new CallFailedException();
         }
         if (resp.getStatus() == 0) {
             return resp.getUrls();
-        } else {
+        } else if (resp.getStatus() == 1) {
             throw new UnauthorizedException();
+        } else {
+            throw new CallFailedException();
         }
+    }
+
+    public static String login(String username, String password)
+            throws CallFailedException, BadCredentialsException {
+        LoginResponse resp;
+        String url = baseUrl + "/login";
+        HttpPost post = new HttpPost(url);
+        try {
+            post.setEntity(new StringEntity(g.toJson(new LoginRequest(username, password))));
+            resp = executeCall(post, LoginResponse.class);
+        } catch (Exception e) {
+            throw new CallFailedException();
+        }
+        if (resp.getStatus() == 0) {
+            return resp.getSession().getToken();
+        } else {
+            throw new BadCredentialsException();
+        }
+    }
+
+    private static <T> T executeCall(HttpPost post, Class<T> tClass) throws CallFailedException {
+        try (CloseableHttpClient c = HttpClient.getHttpClient()) {
+            post.addHeader(HttpHeaders.ACCEPT, "application/json");
+            post.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            HttpResponse response = c.execute(post);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 200) {
+                String respStr = EntityUtils.toString(response.getEntity());
+                return g.fromJson(respStr, tClass);
+            }
+        } catch (Exception e) {}
+        throw new CallFailedException();
     }
 
 }

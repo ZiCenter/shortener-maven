@@ -45,3 +45,7 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
