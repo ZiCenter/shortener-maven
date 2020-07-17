@@ -4,6 +4,7 @@ import com.leucoth.shorten.client.exceptions.CallFailedException;
 import com.leucoth.shorten.client.exceptions.InvalidUrlException;
 import com.leucoth.shorten.client.exceptions.BadCredentialsException;
 import com.leucoth.shorten.client.exceptions.UnauthorizedException;
+import com.leucoth.shorten.client.models.ShortenUrl;
 import com.leucoth.shorten.client.models.rest.UrlConfig;
 import com.leucoth.shorten.client.models.rest.UrlRequest;
 import com.leucoth.shorten.client.utils.HttpClient;
@@ -34,29 +35,33 @@ public final class Service {
         return null;
     }
 
-    public void generate(String shortUrl)
+    public ShortenUrl generate(String shortUrl)
             throws CallFailedException, InvalidUrlException, UnauthorizedException {
-        generate(shortUrl, config);
+        return generate(shortUrl, config);
     }
 
-    public void generate(List<String> shortUrlList)
+    public List<ShortenUrl> generate(List<String> shortUrlList)
             throws UnauthorizedException, CallFailedException, InvalidUrlException {
-        generate(shortUrlList, config);
+        return generate(shortUrlList, config);
     }
 
-    public void generate(String shortUrl, UrlConfig config)
+    public ShortenUrl generate(String shortUrl, UrlConfig config)
             throws UnauthorizedException, InvalidUrlException, CallFailedException {
-        generate(Collections.singletonList(shortUrl), config);
+        List<ShortenUrl> su = generate(Collections.singletonList(shortUrl), config);
+        if (su == null || su.isEmpty()) {
+            throw new CallFailedException();
+        }
+        return su.get(0);
     }
 
-    public void generate(List<String> shortUrlList, UrlConfig config)
+    public List<ShortenUrl> generate(List<String> shortUrlList, UrlConfig config)
             throws CallFailedException, InvalidUrlException, UnauthorizedException {
         if (shortUrlList.stream().allMatch(this::isValidUrl)) {
             try {
-                HttpClient.generateToken(token, new UrlRequest(config, shortUrlList));
+                return HttpClient.generateToken(token, new UrlRequest(config, shortUrlList));
             } catch (UnauthorizedException e) {
                 token = connect(username, password);
-                HttpClient.generateToken(token, new UrlRequest(config, shortUrlList));
+                return HttpClient.generateToken(token, new UrlRequest(config, shortUrlList));
             }
         } else {
             throw new InvalidUrlException();
