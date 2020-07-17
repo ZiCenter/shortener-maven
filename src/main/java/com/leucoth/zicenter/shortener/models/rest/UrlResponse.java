@@ -1,6 +1,6 @@
-package com.leucoth.shorten.client.models.rest;
+package com.leucoth.zicenter.shortener.models.rest;
 
-import com.leucoth.shorten.client.models.ShortenUrl;
+import com.leucoth.zicenter.shortener.models.ShortenUrl;
 
 import java.util.List;
 

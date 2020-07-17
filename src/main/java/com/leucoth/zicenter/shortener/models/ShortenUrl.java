@@ -1,4 +1,4 @@
-package com.leucoth.shorten.client.models;
+package com.leucoth.zicenter.shortener.models;
 
 public class ShortenUrl {
     private String shortUrl;
