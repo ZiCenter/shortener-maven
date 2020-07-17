@@ -1,4 +1,4 @@
-package com.leucoth.zicenter.shortener.exceptions;
+package io.github.zicenter.shortener.exceptions;
 
 public class CallFailedException extends Exception {
 }

@@ -1,6 +1,6 @@
-package com.leucoth.zicenter.shortener.models.rest;
+package io.github.zicenter.shortener.models.rest;
 
-import com.leucoth.zicenter.shortener.models.ShortenUrl;
+import io.github.zicenter.shortener.models.ShortenUrl;
 
 import java.util.List;
 

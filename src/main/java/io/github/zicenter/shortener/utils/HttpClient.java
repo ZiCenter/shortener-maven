@@ -1,16 +1,16 @@
-package com.leucoth.zicenter.shortener.utils;
+package io.github.zicenter.shortener.utils;
 
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.leucoth.zicenter.shortener.exceptions.CallFailedException;
-import com.leucoth.zicenter.shortener.exceptions.BadCredentialsException;
-import com.leucoth.zicenter.shortener.exceptions.UnauthorizedException;
-import com.leucoth.zicenter.shortener.models.ShortenUrl;
-import com.leucoth.zicenter.shortener.models.rest.LoginRequest;
-import com.leucoth.zicenter.shortener.models.rest.LoginResponse;
-import com.leucoth.zicenter.shortener.models.rest.UrlRequest;
-import com.leucoth.zicenter.shortener.models.rest.UrlResponse;
+import io.github.zicenter.shortener.exceptions.CallFailedException;
+import io.github.zicenter.shortener.exceptions.BadCredentialsException;
+import io.github.zicenter.shortener.exceptions.UnauthorizedException;
+import io.github.zicenter.shortener.models.ShortenUrl;
+import io.github.zicenter.shortener.models.rest.LoginRequest;
+import io.github.zicenter.shortener.models.rest.LoginResponse;
+import io.github.zicenter.shortener.models.rest.UrlRequest;
+import io.github.zicenter.shortener.models.rest.UrlResponse;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;

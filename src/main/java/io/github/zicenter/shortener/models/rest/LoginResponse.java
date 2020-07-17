@@ -1,4 +1,4 @@
-package com.leucoth.zicenter.shortener.models.rest;
+package io.github.zicenter.shortener.models.rest;
 
 public class LoginResponse {
     private int status;

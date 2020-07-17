@@ -1,13 +1,13 @@
-package com.leucoth.zicenter.shortener;
+package io.github.zicenter.shortener;
 
-import com.leucoth.zicenter.shortener.exceptions.CallFailedException;
-import com.leucoth.zicenter.shortener.exceptions.InvalidUrlException;
-import com.leucoth.zicenter.shortener.exceptions.BadCredentialsException;
-import com.leucoth.zicenter.shortener.exceptions.UnauthorizedException;
-import com.leucoth.zicenter.shortener.models.ShortenUrl;
-import com.leucoth.zicenter.shortener.models.rest.UrlConfig;
-import com.leucoth.zicenter.shortener.models.rest.UrlRequest;
-import com.leucoth.zicenter.shortener.utils.HttpClient;
+import io.github.zicenter.shortener.exceptions.CallFailedException;
+import io.github.zicenter.shortener.exceptions.InvalidUrlException;
+import io.github.zicenter.shortener.exceptions.BadCredentialsException;
+import io.github.zicenter.shortener.exceptions.UnauthorizedException;
+import io.github.zicenter.shortener.models.ShortenUrl;
+import io.github.zicenter.shortener.models.rest.UrlConfig;
+import io.github.zicenter.shortener.models.rest.UrlRequest;
+import io.github.zicenter.shortener.utils.HttpClient;
 
 import java.net.URL;
 import java.util.Collections;
