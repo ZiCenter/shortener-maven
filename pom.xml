@@ -4,10 +4,11 @@
 
 	<groupId>com.leucoth.zicenter</groupId>
 	<artifactId>shortener</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>Zicenter Shortener Client</name>
 	<description>Maven client for the zicenter shortener service</description>
+	<url>https://github.com/zicenter/shortener-maven.git</url>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -51,7 +52,28 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<packaging>jar</packaging>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Emmanuel Sarpong</name>
+			<email>sarpong@zicenter.com</email>
+			<organization>ZiCenter</organization>
+			<organizationUrl>http://www.zicenter.com</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/zicenter/shortener-maven.git</connection>
+		<developerConnection>scm:git:ssh://github.com/zicenter/shortener-maven.git</developerConnection>
+		<url>https://github.com/ZiCenter/shortener-maven/tree/master</url>
+	</scm>
 
 </project>
