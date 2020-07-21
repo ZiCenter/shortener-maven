@@ -3,7 +3,6 @@
 # ZiCenter URL Shortener
 
 
-
 ## What is this ?
 
 Maven client for the zicenter shortener service
@@ -71,10 +70,8 @@ libraryDependencies += "io.github.zicenter" % "shortener" % "1.0.1"
 ```
 
 #### Leiningen
-```groovy
-@Grapes(
-  @Grab(group='io.github.zicenter', module='shortener', version='1.0.1')
-)
+```
+[io.github.zicenter/shortener "1.0.1"]
 ```
 
 #### Apache Buildr
